@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block titulo %} Listar Libros {% endblock %}
+{% block contenido %}
+<div class="container">
+	<h1>Listado de Libros</h1>
+	<a href="{% url 'crear_libro' %}" class="btn btn-primary mb-3">Crear Libro</a>
+	<table class="table">
+	    <thead>
+	        <tr>
+	            <th>Título</th>
+	            <th>Imagen</th>
+	            <th>Descripción</th>
+	            <th>Acciones</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        {% for libro in libros %}
+	        <tr>
+	            <td>{{ libro.titulo }}</td>
+	            <td>
+	            {% if libro.imagen %}
+	                <img src="{{ libro.imagen.url }}" alt="{{ libro.titulo }}" width="100">
+	                {% endif %}
+	            </td>
+	            <td>{{ libro.descripcion }}</td>
+	            <td>
+	                <a href="{% url 'editar_libro' libro.id %}" class="btn btn-warning">Editar</a>
+	                <a href="{% url 'eliminar_libro' libro.id %}" class="btn btn-danger">Eliminar</a>
+	            </td>
+	        </tr>
+	        {% endfor %}
+	    </tbody>
+	</table>
+</div>
+{% endblock %}
